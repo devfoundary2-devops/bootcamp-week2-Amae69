@@ -8,7 +8,8 @@ on:
 # Add permission below
 permissions:
   contents: read            # Required to read the repo
-  security-events: write    # Required to upload SARIF files
+  security-events: write    # Required to upload SARIF files for security scan
+  packages: write           # Permission needed for build and push stage
 
 env:
   REGISTRY: ghcr.io
