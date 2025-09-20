@@ -16,9 +16,17 @@ spec:
       containers:
       - name: tempo
         image: grafana/tempo:2.0.0
+        args: ["-config.file=/etc/tempo/tempo.yaml"]
         ports:
-        - containerPort: 3200
-        - containerPort: 14250
+        - containerPort: 3200   # http
+        - containerPort: 14250  # grpc
+        volumeMounts:
+        - name: config
+          mountPath: /etc/tempo
+      volumes:
+      - name: config
+        configMap:
+          name: tempo-config
 ---
 apiVersion: v1
 kind: Service
