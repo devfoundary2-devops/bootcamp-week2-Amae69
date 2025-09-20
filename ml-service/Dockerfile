@@ -37,7 +37,8 @@ RUN pip install --user --no-cache-dir -r requirements.txt gunicorn
 
 # Copy application code
 COPY --chown=app:app app.py .
-COPY --chown=app:app telemetry.py . 
+COPY --chown=app:app telemetry.py .
+COPY --chown=app:app metrics.py . 
 COPY --chown=app:app .env* ./
 
 # Health check
