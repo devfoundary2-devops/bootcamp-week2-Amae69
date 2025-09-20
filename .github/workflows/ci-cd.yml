@@ -5,6 +5,10 @@ on:
     branches: [ main, develop ]
   pull_request:
     branches: [ main ]
+# Add permission below
+permissions:
+  contents: read            # Required to read the repo
+  security-events: write    # Required to upload SARIF files
 
 env:
   REGISTRY: ghcr.io
@@ -149,7 +153,8 @@ jobs:
         output: 'trivy-results.sarif'
 
     - name: Upload Trivy scan results to GitHub Security tab
-      uses: github/codeql-action/upload-sarif@v2
+      #uses: github/codeql-action/upload-sarif@v2
+      uses: github/codeql-action/upload-sarif@v3  # Update CodeQL Action
       if: always()
       with:
         sarif_file: 'trivy-results.sarif'
