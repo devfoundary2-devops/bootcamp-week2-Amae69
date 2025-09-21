@@ -168,7 +168,7 @@ storage:
     retention.size: 10GB
 
 # Enable remote write (for long-term storage)
-remote_write:
+#remote_write:
   # Example: Write to external time series database
   # - url: "https://your-remote-storage/api/v1/write"
   #   basic_auth:

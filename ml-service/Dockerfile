@@ -1,12 +1,13 @@
 # Multi-stage build for Python ML service
-FROM python:3.11-slim AS base
+FROM python:3.12-slim AS base
 
 # Install system dependencies and security updates
 RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
         build-essential \
         curl \
-        && rm -rf /var/lib/apt/lists/*
+        && rm -rf /var/lib/apt/lists/* && \
+    pip install --upgrade pip setuptools wheel
 
 # Create app directory and user
 WORKDIR /usr/src/app
@@ -36,6 +37,9 @@ RUN pip install --user --no-cache-dir -r requirements.txt gunicorn
 
 # Copy application code
 COPY --chown=app:app app.py .
+COPY --chown=app:app telemetry.py .
+COPY --chown=app:app metrics.py . 
+COPY --chown=app:app logging_config.py .
 COPY --chown=app:app .env* ./
 
 # Health check
